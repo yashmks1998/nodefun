@@ -1,0 +1,64 @@
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: nodem 
+spec:
+  # Expose the service on a static port on each node
+  # so that we can access the service from outside the cluster 
+  type: NodePort
+
+  # When the node receives a request on the static port (30163)
+  # "select pods with the label 'app' set to 'echo-hostname'"
+  # and forward the request to one of them
+  selector:
+    app: nodem 
+
+  ports:
+    # Three types of ports for a service
+    # nodePort - a static port assigned on each the node
+    # port - port exposed internally in the cluster
+    # targetPort - the container port to send requests to
+    - nodePort: 30163
+      port: 80
+      targetPort: 3000
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nodem
+#   labels:
+#     app: nodem
+#     tier: backend
+# spec:
+#   type: LoadBalancer
+#   ports:
+#     - port: 80
+#       targetPort: 3000
+#   # Replace with the IP of your minikube node / master node
+# #   externalIPs:
+# #     - xxx.yyy.zzz.qqq
+#   selector:
+#     app: nodem
+#     tier: backend
+#    kind: Service 
+# apiVersion: v1 
+# metadata:
+#   name: hostname-service 
+# spec:
+#   # Expose the service on a static port on each node
+#   # so that we can access the service from outside the cluster 
+#   type: NodePort
+
+#   # When the node receives a request on the static port (30163)
+#   # "select pods with the label 'app' set to 'echo-hostname'"
+#   # and forward the request to one of them
+#   selector:
+#     app: echo-hostname 
+
+#   ports:
+#     # Three types of ports for a service
+#     # nodePort - a static port assigned on each the node
+#     # port - port exposed internally in the cluster
+#     # targetPort - the container port to send requests to
+#     - nodePort: 30163
+#       port: 8080 
+#       targetPort: 80 

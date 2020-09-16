@@ -1,0 +1,26 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nodem
+spec:
+  selector:
+    matchLabels:
+      app: nodem
+      tier: backend
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: nodem
+        tier: backend
+    spec:
+      containers:
+        - name: nodem
+          image: 1000006652/nodeauth 
+          ports:
+            - containerPort: 3000
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1

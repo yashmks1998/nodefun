@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeauthentication
+  name: nodeauth
 spec:
   selector:
-    app: nodeauthentication
+    app: nodeauth
   ports:
     - port: 80
       targetPort: 3000
@@ -13,19 +13,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeauthentication
+  name: nodeauth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodeauthentication
+      app: nodeauth
   template:
     metadata:
       labels:
-        app: nodeauthentication
+        app: nodeauth
     spec:
       containers:
-        - name: nodeauthentication
+        - name: nodeauth
           image: 1000006652/nodeauth
           ports:
             - containerPort: 3000
